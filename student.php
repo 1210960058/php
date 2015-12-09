@@ -13,18 +13,22 @@ $_SESSION["class"]=$_POST["class"];
 $search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id='.$_SESSION['id']);
 $search ->execute();
 
-while($_SESSION["result"] = $search ->fetch(PDO::FETCH_ASSOC)){
+$_SESSION["result"] = $search ->fetchAll();
 
+echo $_SESSION["result"][0]['id']."さんの出欠表";
+echo '<br>';
+echo "授業名「".$_SESSION["class"]."」";
+
+for($i=0;$i<16;$i++){
 header('Content-type: text/html');
 echo '<br>';
-print($_SESSION["result"]['id']);
+echo $i.'回目';
+print($_SESSION["result"][$i]['time']);
 echo '<br>';
-print($_SESSION["result"]['time']);
-echo '<br>';
-echo '<img src="img.php" />';
+echo '<img src="img.php?count='.$i.'" />';
 
-
+if( empty($_SESSION["result"][$i]['id']) ){
+  print '$varは0か空です。';
 }
-
-
+}
 ?>

@@ -8,6 +8,11 @@ array(PDO::ATTR_EMULATE_PREPARES => false));
 exit('error'.$e->getMessage());
 }
 
+
+
+      $count = $_GET['count'];
+
+
 $search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id='.$_SESSION["id"]);
 $search ->execute();
 
@@ -22,5 +27,5 @@ $contents_type = array(
 
 
 header('Content-type: image/jpg');
-echo $_SESSION["result"]['img_col'];
+echo $_SESSION["result"][$count]['img_col'];
 ?>
