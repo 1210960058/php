@@ -13,7 +13,8 @@ exit('error'.$e->getMessage());
       $count = $_GET['count'];
 
 
-$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id='.$_SESSION["id"]);
+$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id');
+$search ->bindParam(':id',$_SESSION["id"]);
 $search ->execute();
 
 $result = $search ->fetch(PDO::FETCH_ASSOC);

@@ -11,14 +11,20 @@ $_SESSION["id"]=$_POST["id"];
 $_SESSION["pass"]=$_POST["pass"];
 
 
-$search=$pdo->prepare('select * from student WHERE id='.$_SESSION["id"]);
+$search=$pdo->prepare('select * from student WHERE id=:id');
+$search ->bindParam(':id',$_SESSION["id"]);
 $search ->execute();
 
 $result = $search ->fetch(PDO::FETCH_ASSOC);
 
 if ($_SESSION["pass"] == $result['pass']) {
+	if (mb_substr($_SESSION["id"] ,0 ,1) == "t") {
+		echo '<form method="post" action="teacher.php">';
+	}
+	else{echo '<form method="post" action="student.php">';}
+	
 ?>
-<form method="post" action="student.php">
+
 <p>
 <select name="class">
 

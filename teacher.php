@@ -10,7 +10,7 @@ exit('error'.$e->getMessage());
 $_SESSION["class"]=$_POST["class"];
 //echo $_SESSION["id"];
 //echo $class;
-$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id');
+$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id NOT LIKE "%t%" ');
 $search ->bindParam(':id',$_SESSION["id"]);
 $search ->execute();
 $_SESSION["result"] = $search ->fetchAll();
@@ -20,8 +20,7 @@ $search2 ->execute();
 $_SESSION["teacher"] = $search2 ->fetchAll();
 
 
-echo $_SESSION["result"][0]['id']."さんの出欠表";
-echo '<br>';
+
 echo "授業名「".$_SESSION["class"]."」";
 
 for($i=0,$co=1;$i<16;$i++,$co++){
@@ -40,7 +39,7 @@ for($i=0,$co=1;$i<16;$i++,$co++){
 					print($_SESSION["result"][$j]['time']);
 					echo '<br>';
 					echo '<img src="img.php?count='.$j.'" />';
-					break;
+					//break;
 			}
 			else{
 					header('Content-type: text/html');
@@ -49,7 +48,7 @@ for($i=0,$co=1;$i<16;$i++,$co++){
 					print($_SESSION["result"][$j]['time']);
 					echo '<br>';
 					echo '<img src="img.php?count='.$j.'" />';
-					break;
+					//break;
 			}
 		}
 	}
