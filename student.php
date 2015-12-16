@@ -10,12 +10,12 @@ exit('error'.$e->getMessage());
 $_SESSION["class"]=$_POST["class"];
 //echo $_SESSION["id"];
 //echo $class;
-$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id');
+$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id ORDER BY time');
 $search ->bindParam(':id',$_SESSION["id"]);
 $search ->execute();
 $_SESSION["result"] = $search ->fetchAll();
 
-$search2=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id LIKE "%t%" ');
+$search2=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id LIKE "%t%" ORDER BY time');
 $search2 ->execute();
 $_SESSION["teacher"] = $search2 ->fetchAll();
 
@@ -39,7 +39,7 @@ for($i=0,$co=1;$i<16;$i++,$co++){
 					echo $co.'回目 遅刻';
 					print($_SESSION["result"][$j]['time']);
 					echo '<br>';
-					echo '<img src="img.php?count='.$j.'" />';
+					echo '<img src="img.php?count='.$j.'&id='.$_SESSION["result"][0]['id'].'" />';
 					break;
 			}
 			else{
@@ -48,7 +48,7 @@ for($i=0,$co=1;$i<16;$i++,$co++){
 					echo $co.'回目';
 					print($_SESSION["result"][$j]['time']);
 					echo '<br>';
-					echo '<img src="img.php?count='.$j.'" />';
+					echo '<img src="img.php?count='.$j.'&id='.$_SESSION["result"][0]['id'].'" />';
 					break;
 			}
 		}

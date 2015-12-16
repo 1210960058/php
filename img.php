@@ -11,22 +11,23 @@ exit('error'.$e->getMessage());
 
 
       $count = $_GET['count'];
+      $id = $_GET['id'];
 
 
-$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id');
-$search ->bindParam(':id',$_SESSION["id"]);
+$search=$pdo->prepare('select * from '.$_SESSION["class"].' WHERE id=:id ORDER BY time');
+$search ->bindParam(':id',$id);
 $search ->execute();
+$result = $search ->fetchAll();
 
-$result = $search ->fetch(PDO::FETCH_ASSOC);
 
-$contents_type = array(
-'jpg' => 'image/jpeg',
-'png' => 'image/png',
-);
+
+
+
+
 
 
 
 
 header('Content-type: image/jpg');
-echo $_SESSION["result"][$count]['img_col'];
+echo $result[$count]['img_col'];
 ?>
